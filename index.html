@@ -58,7 +58,7 @@
                         </section>
                           <section class="mb-4">
                             <div class="d-grid">
-                                <button type="button" class="btn btn-primary rounded-pill px-4">
+                                <button type="button" onclick="iniciar()" class="btn btn-primary rounded-pill px-4">
                                     Iniciar Juego
                                 </button>
                             </div>
@@ -66,7 +66,7 @@
                          <section class="text-center mb-3">
                     <!-- Turnos -->
                             <div class="alert alert-info text-center fw-bold mb-4" role="alert">
-                                Turno: <span id="lblTurno">Jugador X</span>
+                                Turno: <span id="lblTurno"></span>
                             </div>
                         </section>
 
@@ -76,17 +76,17 @@
                             <!-- Fila 1 -->
                                 <div class="row g-0">
                                     <div class="col-4">
-                                        <div class="border bg-white ratio ratio-1x1 casilla" data-pos="1">
+                                        <div class="border bg-white ratio ratio-1x1 casilla" data-pos="1" onclick="jugar(1)">
                                             <img src="img/111.jpg" class="w-100 h-100 object-fit-cover opacity-25" alt="sombra">
                                         </div>
                                     </div>
                                     <div class="col-4">
-                                        <div class="border bg-white ratio ratio-1x1 casilla" data-pos="2">
+                                        <div class="border bg-white ratio ratio-1x1 casilla" data-pos="2" onclick="jugar(2)">
                                             <img src="img/111.jpg" class="w-100 h-100 object-fit-cover opacity-25" alt="sombra">
                                         </div>
                                     </div>
                                     <div class="col-4">
-                                        <div class="border bg-white ratio ratio-1x1 casilla" data-pos="3">
+                                        <div class="border bg-white ratio ratio-1x1 casilla" data-pos="3" onclick="jugar(3)">
                                             <img src="img/111.jpg" class="w-100 h-100 object-fit-cover opacity-25" alt="sombra">
                                         </div>
                                     </div>
@@ -95,17 +95,17 @@
                             <!-- Fila 2 -->
                             <div class="row g-0">
                                 <div class="col-4">
-                                    <div class="border bg-white ratio ratio-1x1 casilla" data-pos="4">
+                                    <div class="border bg-white ratio ratio-1x1 casilla" data-pos="4" onclick="jugar(4)">
                                         <img src="img/111.jpg" class="w-100 h-100 object-fit-cover opacity-25" alt="sombra">
                                     </div>
                                 </div>
                                 <div class="col-4">
-                                    <div class="border bg-white ratio ratio-1x1 casilla" data-pos="5">
+                                    <div class="border bg-white ratio ratio-1x1 casilla" data-pos="5" onclick="jugar(5)">
                                         <img src="img/111.jpg" class="w-100 h-100 object-fit-cover opacity-25" alt="sombra">
                                     </div>
                                 </div>
                                 <div class="col-4">
-                                    <div class="border bg-white ratio ratio-1x1 casilla" data-pos="6">
+                                    <div class="border bg-white ratio ratio-1x1 casilla" data-pos="6" onclick="jugar(6)">
                                         <img src="img/111.jpg" class="w-100 h-100 object-fit-cover opacity-25" alt="sombra">
                                     </div>
                                 </div>
@@ -114,17 +114,17 @@
                             <!-- Fila 3 -->
                             <div class="row g-0">
                                 <div class="col-4">
-                                    <div class="border bg-white ratio ratio-1x1 casilla" data-pos="7">
+                                    <div class="border bg-white ratio ratio-1x1 casilla" data-pos="7" onclick="jugar(7)">
                                         <img src="img/111.jpg" class="w-100 h-100 object-fit-cover opacity-25" alt="sombra">
                                     </div>
                                 </div>
                                 <div class="col-4">
-                                    <div class="border bg-white ratio ratio-1x1 casilla" data-pos="8">
+                                    <div class="border bg-white ratio ratio-1x1 casilla" data-pos="8" onclick="jugar(8)">
                                         <img src="img/111.jpg" class="w-100 h-100 object-fit-cover opacity-25" alt="sombra">
                                     </div>
                                 </div>
                                 <div class="col-4">
-                                    <div class="border bg-white ratio ratio-1x1 casilla" data-pos="9">
+                                    <div class="border bg-white ratio ratio-1x1 casilla" data-pos="9" onclick="jugar(9)">
                                         <img src="img/111.jpg" class="w-100 h-100 object-fit-cover opacity-25" alt="sombra">
                                     </div>
                                 </div>
@@ -136,9 +136,51 @@
                 </div>
             </article>
         </section>
-    </main>
-    <script>
+            </main>
+            <script>
+            let turno = document.getElementById("lblTurno");
+            let jugadorX = document.getElementById("txtJugadorX");
+            let jugadorO = document.getElementById("txtJugadorO");
+            let casillas = document.getElementsByClassName("casilla");
 
-    </script>
+            let turnoActual = "X";
+
+            function iniciar()
+            {
+                turnoActual = "X";
+
+                if (jugadorX.value != "") {
+                    turno.innerHTML = jugadorX.value;
+                } else {
+                    turno.innerHTML = "Jugador X";
+                }
+
+                for (let i = 0; i < casillas.length; i++) {
+                    let imagen = casillas[i].querySelector("img");
+                    imagen.src = "img/111.jpg";
+                    imagen.classList.add("opacity-25");
+                }
+            }
+
+            function jugar(pos)
+            {
+                let imagen = casillas[pos - 1].querySelector("img");
+
+                if (imagen.classList.contains("opacity-25")) {
+                    imagen.classList.remove("opacity-25");
+
+                    if (turnoActual == "X") {
+                        imagen.src = "img/X.jpg";
+                        turnoActual = "O";
+                        turno.innerHTML = jugadorO.value != "" ? jugadorO.value : "Jugador O";
+                    } else {
+                        imagen.src = "img/O.jpg";
+                        turnoActual = "X";
+                        turno.innerHTML = jugadorX.value != "" ? jugadorX.value : "Jugador X";
+                    }
+                }
+            }
+        </script>
+
 </body>
 </html>
